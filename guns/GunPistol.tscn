@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://d6oh6g3m3a8e"]
+
+[ext_resource type="Script" uid="uid://dpudgs2p0f3i2" path="res://guns/gun_pistol.gd" id="1_fg6a3"]
+[ext_resource type="AudioStream" uid="uid://dnxu182p2ual8" path="res://sounds/gunsounds/pistol_fire3.wav" id="2_334ri"]
+[ext_resource type="PackedScene" uid="uid://cnf3lcxl145vp" path="res://tracer.tscn" id="2_b8bdh"]
+[ext_resource type="Texture2D" uid="uid://ej0k8w58eaw4" path="res://assets/guns/smg.png" id="4_b8bdh"]
+[ext_resource type="PackedScene" uid="uid://c6xl1cokfp352" path="res://gunmodels/pistola.gltf" id="4_chwgs"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_fg6a3")
+tracer_scene = ExtResource("2_b8bdh")
+
+[node name="GunSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.9897787, 0, -0.14261167, 0, 1, 0, 0.14261167, 0, 0.9897787, 0, 0, 0)
+stream = ExtResource("2_334ri")
+bus = &"Guns"
+
+[node name="MuzzleFlash" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21065864, -0.07018794, -1.0414045)
+visible = false
+light_color = Color(0.943968, 0.8151805, 0, 1)
+light_energy = 2.111
+omni_range = 4.61905
+
+[node name="GunRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -50)
+
+[node name="blockbench_export" parent="." instance=ExtResource("4_chwgs")]
+transform = Transform3D(0.02995034, 0, 0.0017253523, 0, 0.029999994, 0, -0.0017253523, 0, 0.02995034, 0.20494556, -0.11576165, -0.51233673)
+
+[node name="cuboid" parent="blockbench_export/group3" index="0"]
+layers = 1048575
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(711, 634)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("4_b8bdh")
+
+[editable path="blockbench_export"]

@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://lu1ea15l8fg"]
+
+[ext_resource type="Script" uid="uid://bmoflm1dy6mek" path="res://guns/gun_shotgun.gd" id="1_k4153"]
+[ext_resource type="PackedScene" uid="uid://cnf3lcxl145vp" path="res://tracer.tscn" id="2_23kqo"]
+[ext_resource type="PackedScene" uid="uid://dxtdjhyq264sw" path="res://gunmodels/espingas.gltf" id="2_7404p"]
+[ext_resource type="AudioStream" uid="uid://cnxuf0d2jf1en" path="res://sounds/gunsounds/shotgunshot.mp3" id="3_23kqo"]
+[ext_resource type="PackedScene" uid="uid://bbmpaigqq11wp" path="res://impact_effect.tscn" id="3_tdk62"]
+[ext_resource type="Texture2D" uid="uid://kwl5b84biobx" path="res://assets/guns/sg1.png" id="4_e1xmu"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_k4153")
+tracer_scene = ExtResource("2_23kqo")
+impact_scene = ExtResource("3_tdk62")
+
+[node name="GunSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_23kqo")
+volume_db = 4.0
+bus = &"Guns"
+
+[node name="MuzzleFlash" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4566785, -0.20204335, -1.5777564)
+visible = false
+light_color = Color(0.9512201, 0.7414343, 0.30831823, 1)
+light_energy = 4.0
+omni_range = 5.264
+omni_attenuation = -0.25
+
+[node name="GunRay" type="RayCast3D" parent="."]
+transform = Transform3D(6.795322, 0, 0, 0, 1.5793357, 0, 0, 0, 1, 0, 0, 0)
+target_position = Vector3(0, 0, -50)
+
+[node name="Shotgun" parent="." instance=ExtResource("2_7404p")]
+transform = Transform3D(-0.09672634, 0.0039911377, 0.995303, 0.04621475, 0.9989314, 0.00048559214, -0.9942375, 0.04604466, -0.096807435, 0.35475084, -0.33071113, -0.53178054)
+
+[node name="slide" parent="Shotgun" index="0"]
+layers = 1048575
+
+[node name="grip" parent="Shotgun" index="1"]
+layers = 1048575
+
+[node name="handle" parent="Shotgun" index="2"]
+layers = 1048575
+
+[node name="sight" parent="Shotgun" index="3"]
+layers = 1048575
+
+[node name="dam" parent="Shotgun" index="4"]
+layers = 1048575
+
+[node name="MuzzlePoint" type="Node3D" parent="."]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.4004227, -0.27648318, -1.3407232)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(596, 631)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("4_e1xmu")
+
+[editable path="Shotgun"]

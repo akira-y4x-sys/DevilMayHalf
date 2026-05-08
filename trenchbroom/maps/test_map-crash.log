@@ -1,0 +1,26 @@
+Renderer info: Mesa Intel(R) HD Graphics 2000 (SNB GT1) version 3.3 (Compatibility Profile) Mesa 23.2.1-1ubuntu3.1~22.04.3 from Intel
+Depth buffer bits: 24
+Multisampling enabled
+Adding file system path "/usr/share/TrenchBroom/defaults/assets"
+Adding file system path "/home/akira/devilmayhalf/."
+Loading document from /home/akira/devilmayhalf/trenchbroom/maps/test_map.map
+Adding file system path "/usr/share/TrenchBroom/defaults/assets"
+Adding file system path "/home/akira/devilmayhalf/."
+Adding file system path "/home/akira/devilmayhalf/assets"
+Loaded entity definition file DevilMayHalf.fgd
+Loaded texture collection '"textures"'
+Loaded texture collection '"textures/world"'
+Loaded "/home/akira/devilmayhalf/trenchbroom/maps/test_map.map" in 6451ms
+Renderer info: Mesa Intel(R) HD Graphics 2000 (SNB GT1) version 3.3 (Compatibility Profile) Mesa 23.2.1-1ubuntu3.1~22.04.3 from Intel
+Depth buffer bits: 24
+Multisampling enabled
+Adding file system path "/usr/share/TrenchBroom/defaults/assets"
+Adding file system path "/home/akira/devilmayhalf/."
+Loading document from /home/akira/devilmayhalf/trenchbroom/maps/test_map.map
+Adding file system path "/usr/share/TrenchBroom/defaults/assets"
+Adding file system path "/home/akira/devilmayhalf/."
+Adding file system path "/home/akira/devilmayhalf/assets"
+Loaded entity definition file DevilMayHalf.fgd
+Loaded texture collection '"textures"'
+Loaded texture collection '"textures/world"'
+Loaded "/home/akira/devilmayhalf/trenchbroom/maps/test_map.map" in 425ms

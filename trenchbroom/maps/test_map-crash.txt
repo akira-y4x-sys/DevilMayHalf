@@ -1,0 +1,31 @@
+OS:	Zorin OS 17.3
+Qt:	5.15.3
+GL_VENDOR:	Intel
+GL_RENDERER:	Mesa Intel(R) HD Graphics 2000 (SNB GT1)
+GL_VERSION:	3.3 (Compatibility Profile) Mesa 23.2.1-1ubuntu3.1~22.04.3
+TrenchBroom Version:	2024.1
+TrenchBroom Build:	v2024.1-RC1 Release Linux-ubuntu-22.04
+Reason:	SIGSEGV
+Stack trace:
+trenchbroom(+0x62adf0) [0x5dcd98824df0]
+trenchbroom(+0x628081) [0x5dcd98822081]
+/lib/x86_64-linux-gnu/libc.so.6(+0x42520) [0x7168cba42520]
+/lib/x86_64-linux-gnu/libQt5Widgets.so.5(_ZNK7QWidget6windowEv+0x8) [0x7168cd1968a8]
+trenchbroom(+0x80386c) [0x5dcd989fd86c]
+/lib/x86_64-linux-gnu/libQt5Core.so.5(_ZN7QObject5eventEP6QEvent+0x2ae) [0x7168cc4e741e]
+/lib/x86_64-linux-gnu/libQt5Widgets.so.5(_ZN19QApplicationPrivate13notify_helperEP7QObjectP6QEvent+0x83) [0x7168cd16c713]
+trenchbroom(+0x62a661) [0x5dcd98824661]
+/lib/x86_64-linux-gnu/libQt5Core.so.5(_ZN16QCoreApplication15notifyInternal2EP7QObjectP6QEvent+0x13a) [0x7168cc4b9e3a]
+/lib/x86_64-linux-gnu/libQt5Core.so.5(_ZN23QCoreApplicationPrivate16sendPostedEventsEP7QObjectiP11QThreadData+0x187) [0x7168cc4bcf27]
+/lib/x86_64-linux-gnu/libQt5Core.so.5(+0x313a67) [0x7168cc513a67]
+/lib/x86_64-linux-gnu/libglib-2.0.so.0(g_main_context_dispatch+0x26b) [0x7168cac50d3b]
+/lib/x86_64-linux-gnu/libglib-2.0.so.0(+0xab488) [0x7168caca6488]
+/lib/x86_64-linux-gnu/libglib-2.0.so.0(g_main_context_iteration+0x33) [0x7168cac4e3e3]
+/lib/x86_64-linux-gnu/libQt5Core.so.5(_ZN20QEventDispatcherGlib13processEventsE6QFlagsIN10QEventLoop17ProcessEventsFlagEE+0x68) [0x7168cc5130b8]
+/lib/x86_64-linux-gnu/libQt5Core.so.5(_ZN10QEventLoop4execE6QFlagsINS_17ProcessEventsFlagEE+0x12b) [0x7168cc4b875b]
+/lib/x86_64-linux-gnu/libQt5Core.so.5(_ZN16QCoreApplication4execEv+0x94) [0x7168cc4c0cf4]
+trenchbroom(+0x2c7bfe) [0x5dcd984c1bfe]
+/lib/x86_64-linux-gnu/libc.so.6(+0x29d90) [0x7168cba29d90]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80) [0x7168cba29e40]
+trenchbroom(+0x2ce905) [0x5dcd984c8905]
+

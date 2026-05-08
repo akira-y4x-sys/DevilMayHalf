@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://p8b1rf35xf40"]
+
+[ext_resource type="Script" uid="uid://cfiehebosdges" path="res://player.gd" id="1_hqtel"]
+[ext_resource type="Script" uid="uid://cmfymmglni3pi" path="res://gun_holder.gd" id="2_sweqy"]
+[ext_resource type="PackedScene" uid="uid://d6oh6g3m3a8e" path="res://guns/GunPistol.tscn" id="3_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://lu1ea15l8fg" path="res://guns/GunShotgun.tscn" id="4_1jxqw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dw050"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_b26j0"]
+size = Vector3(0.3, 0.2, 1)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+script = ExtResource("1_hqtel")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_dw050")
+
+[node name="FootstepPlayer" type="AudioStreamPlayer3D" parent="."]
+bus = &"Guns"
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+near = 0.01
+
+[node name="Hand" type="MeshInstance3D" parent="CameraPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19999999, -0.20000005, -0.5)
+visible = false
+mesh = SubResource("BoxMesh_b26j0")
+
+[node name="GunHolder" type="Node3D" parent="CameraPivot/Camera3D"]
+script = ExtResource("2_sweqy")
+guns = Array[PackedScene]([ExtResource("3_2hs0m"), ExtResource("4_1jxqw")])

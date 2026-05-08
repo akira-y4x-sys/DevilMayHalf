@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://dl21uvx54a5rr"]
+
+[ext_resource type="Script" uid="uid://bwue2eulfy1d3" path="res://grunt.gd" id="1_oaaad"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_byjql"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fgesa"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jpbit"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qr2dx"]
+size = Vector3(1, 1.8820801, 1)
+
+[node name="Grunt" type="CharacterBody3D"]
+script = ExtResource("1_oaaad")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_byjql")
+skeleton = NodePath("../CollisionShape3D")
+surface_material_override/0 = SubResource("StandardMaterial3D_fgesa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_jpbit")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10046387, 0)
+shape = SubResource("BoxShape3D_qr2dx")

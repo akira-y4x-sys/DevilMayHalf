@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgc5ebdgefd5o"]
+
+[ext_resource type="Script" uid="uid://5dlfs6fjgtt4" path="res://grenade_enemy.gd" id="1_uelne"]
+[ext_resource type="PackedScene" uid="uid://utjayenccbu1" path="res://grenade.tscn" id="2_yk15g"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a60dh"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_cymbo"]
+
+[node name="GrenadeEnemy" type="CharacterBody3D"]
+script = ExtResource("1_uelne")
+grenade_scene = ExtResource("2_yk15g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_a60dh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("CapsuleMesh_cymbo")
