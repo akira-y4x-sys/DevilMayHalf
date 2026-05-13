@@ -4,9 +4,8 @@ Fast-paced FPS prototype made in Godot.
 
 ## Features
 
-* Shotguns and pistols
+* Weapons
 * Enemy AI
-* Grenades
 * Movement mechanics
 * Stylized retro visuals
 
