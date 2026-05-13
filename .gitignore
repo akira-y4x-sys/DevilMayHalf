@@ -1,3 +1,36 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Godot 4+
+.import/
+.export/
+.export_presets.cfg
+
+# Mono/C#
+.mono/
+data_*/
+
+# Linux junk
+*~
+.DS_Store
+
+# Godot cache
+.godot/
+
+# Build outputs
+builds/
+exports/
+
+# Temporary files
+*.tmp
+*.log
+
+# Blender backups
+*.blend1
+
+# VSCode
+.vscode/
+
+# Godot editor files
+*.translation
