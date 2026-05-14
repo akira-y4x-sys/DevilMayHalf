@@ -1,6 +1,6 @@
 [gd_scene load_steps=134 format=4 uid="uid://b466spt03qove"]
 
-[ext_resource type="Texture2D" uid="uid://b16pm41sbmeh3" path="res://texturas/Crosshair 1.png" id="5_036b0"]
+[ext_resource type="Texture2D" uid="uid://b16pm41sbmeh3" path="res://assets/textures/gui/Crosshair 1.png" id="5_036b0"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="7_ioo17"]
 [ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="8_wse8f"]
 [ext_resource type="Material" uid="uid://jqkh6suhu1nx" path="res://assets/textures/world/t18.tres" id="9_ikiii"]

@@ -2,21 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t6c0bgmve63x"
-path.s3tc="res://.godot/imported/shadow_32x32.png-02fbfbc47410c9d426205ec6b66cd121.s3tc.ctex"
+uid="uid://b0oarlshuciky"
+path="res://.godot/imported/espingas_4.png-4391b0639454d2e99f8efdea03aac49f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
+}
+generator_parameters={
+"md5": "c15ad718afaa278a4e103fa0543ac2bb"
 }
 
 [deps]
 
-source_file="res://textures/shadow_32x32.png"
-dest_files=["res://.godot/imported/shadow_32x32.png-02fbfbc47410c9d426205ec6b66cd121.s3tc.ctex"]
+source_file="res://guns/gunmodels/espingas_4.png"
+dest_files=["res://.godot/imported/espingas_4.png-4391b0639454d2e99f8efdea03aac49f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0

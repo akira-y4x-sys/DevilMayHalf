@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dxtdjhyq264sw"
-path="res://.godot/imported/espingas.gltf-8a599e2306821426dab1e4de68326ff7.scn"
+uid="uid://c6xl1cokfp352"
+path="res://.godot/imported/pistola.gltf-11f7f6f62543253f26a7a83cc43eee3e.scn"
 
 [deps]
 
-source_file="res://gunmodels/espingas.gltf"
-dest_files=["res://.godot/imported/espingas.gltf-8a599e2306821426dab1e4de68326ff7.scn"]
+source_file="res://guns/gunmodels/pistola.gltf"
+dest_files=["res://.godot/imported/pistola.gltf-11f7f6f62543253f26a7a83cc43eee3e.scn"]
 
 [params]
 

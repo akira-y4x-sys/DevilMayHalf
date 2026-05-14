@@ -2,24 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s8vnj2k426kq"
-path.s3tc="res://.godot/imported/espingas_0.png-94e9cb112ea0d4710e66aa164726f37d.s3tc.ctex"
+uid="uid://dsuk7027houyi"
+path="res://.godot/imported/pistola_0.png-a9f1a3bec71d964ae7a482ea8343dfcf.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
-"md5": "49d66a95493c122c7fe0a8b775e37c62"
+"md5": "27d542e97ef2a63b117b329c0b406b72"
 }
 
 [deps]
 
-source_file="res://gunmodels/espingas_0.png"
-dest_files=["res://.godot/imported/espingas_0.png-94e9cb112ea0d4710e66aa164726f37d.s3tc.ctex"]
+source_file="res://guns/gunmodels/pistola_0.png"
+dest_files=["res://.godot/imported/pistola_0.png-a9f1a3bec71d964ae7a482ea8343dfcf.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -27,7 +26,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

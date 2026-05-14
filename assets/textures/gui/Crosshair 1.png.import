@@ -2,23 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0oarlshuciky"
-path="res://.godot/imported/espingas_4.png-1bcb642a778856fdc5fd533bf90f71b0.ctex"
+uid="uid://b16pm41sbmeh3"
+path="res://.godot/imported/Crosshair 1.png-1016f9c0c8f2b8d19ddcbd41c7f341e0.ctex"
 metadata={
 "vram_texture": false
-}
-generator_parameters={
-"md5": "c15ad718afaa278a4e103fa0543ac2bb"
 }
 
 [deps]
 
-source_file="res://gunmodels/espingas_4.png"
-dest_files=["res://.godot/imported/espingas_4.png-1bcb642a778856fdc5fd533bf90f71b0.ctex"]
+source_file="res://assets/textures/gui/Crosshair 1.png"
+dest_files=["res://.godot/imported/Crosshair 1.png-1016f9c0c8f2b8d19ddcbd41c7f341e0.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -26,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -40,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
