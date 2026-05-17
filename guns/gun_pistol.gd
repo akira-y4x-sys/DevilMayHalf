@@ -3,6 +3,7 @@ extends Node3D
 @onready var muzzle = $MuzzleFlash
 @onready var sound  = $GunSound
 @onready var flash  = $MuzzleFlash
+@onready var anim = $blockbench_export/AnimationPlayer
 
 @export var is_automatic  := true
 @export var tracer_scene  : PackedScene
@@ -11,7 +12,7 @@ const DAMAGE    := 30
 const RANGE     := 300.0
 
 var can_shoot   := true
-var shoot_delay := 0.30
+var shoot_delay := 0.35
 var player      = null
 
 func _ready():
@@ -55,6 +56,7 @@ func spawn_tracer(from: Vector3, direction: Vector3, hit_pos: Vector3):
 	tracer.init(from, direction, hit_pos)
 
 func fire():
+	anim.play("Shoot")
 	flash.visible = true
 	sound.play()
 	get_tree().create_timer(0.05).timeout.connect(func():

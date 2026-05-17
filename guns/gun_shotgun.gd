@@ -14,7 +14,7 @@ const DAMAGE    := 18
 const RANGE     := 300.0
 
 var can_shoot   := true
-var shoot_delay := 0.50
+var shoot_delay := 0.45
 var player      = null
 
 func _ready():
@@ -59,15 +59,15 @@ func cast_pellets():
 func spawn_impact(position: Vector3, normal: Vector3):
 	if not impact_scene:
 		return
-
 	var impact = impact_scene.instantiate()
 	get_tree().current_scene.add_child(impact)
-
-	# Move slightly off the wall so it doesn't clip
 	impact.global_transform.origin = position + normal * 0.1
 
-	# Rotate so particles face outward from surface
-	impact.look_at(position + normal, Vector3.UP)
+	# rotaciona o impacto para apontar na direção da normal da superfície
+	var up = Vector3.UP
+	if abs(normal.dot(Vector3.UP)) > 0.99:
+		up = Vector3.FORWARD
+	impact.look_at(position + normal, up)
 
 func get_spread_direction() -> Vector3:
 	var cam        = player.get_node("CameraPivot/Camera3D")

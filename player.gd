@@ -3,59 +3,64 @@ extends CharacterBody3D
 # ─── MOVEMENT TUNING ─────────────────────────────
 @export var ground_speed    := 7.0
 @export var crouch_speed    := 3.5
-
-@export var ground_accel    := 15.0   # alto para resposta imediata no chão
-@export var air_accel       := 1.0    # baixo no ar — mas SEM friction = bhop funciona
+@export var ground_accel    := 15.0
+@export var air_accel       := 1.0
 @export var friction        := 6.0
-
 @export var gravity         := 20.0
 @export var jump_force      := 5.5
 
 # WALL RUN
-@export var wall_run_gravity    := 12.0
-@export var wall_run_speed      := 12.0
-@export var wall_run_pull       := 2.0
-@export var max_wall_run_time   := 0.2
+@export var wall_run_gravity   := 12.0
+@export var wall_run_speed     := 12.0
+@export var wall_run_pull      := 2.0
+@export var max_wall_run_time  := 0.2
 
 # SLIDE
-@export var slide_friction      := 6.0
-@export var min_slide_speed     := 9.0
+@export var slide_friction     := 6.0
+@export var min_slide_speed    := 9.0
 
 # FOV
-@export var base_fov    := 75.0
-@export var max_fov     := 80.0
-@export var fov_speed   := 3.0
+@export var base_fov           := 75.0
+@export var max_fov            := 80.0
+@export var fov_speed          := 3.0
 
 # CAMERA ROLL
 @export var wall_run_roll_angle := 10.0
 @export var roll_speed          := 8.0
 
 # STEP / BHOP
-@export var step_height         := 0.5
+@export var step_height        := 0.5
+
+# ─── LEAN ────────────────────────────────────────
+@export var lean_distance      := 0.4   # how far the camera shifts sideways
+@export var lean_roll_angle    := 8.0   # degrees of camera roll while leaning
+@export var lean_speed         := 10.0  # how fast it lerps in/out
+
+var current_lean               := 0.0   # -1 left, 0 center, 1 right
+var lean_offset_x              := 0.0   # actual horizontal offset applied
 
 # ─── CAMERA / INPUT ─────────────────────────────
-@export var mouse_sens  := 0.15
-var cam_pitch           := 0.0
+@export var mouse_sens := 0.15
+var cam_pitch          := 0.0
 
 @onready var cam_pivot  := $CameraPivot
 @onready var cam        := $CameraPivot/Camera3D
 @onready var gun_holder := $CameraPivot/Camera3D/GunHolder
 
 # ─── CROUCH ─────────────────────────────────────
-@onready var collider   := $CollisionShape3D
-@onready var capsule    := collider.shape as CapsuleShape3D
+@onready var collider := $CollisionShape3D
+@onready var capsule  := collider.shape as CapsuleShape3D
 
-@export var stand_height    := 2.0
-@export var crouch_height   := 1.0
+@export var stand_height  := 2.0
+@export var crouch_height := 1.0
 
 # ─── GUN SWAY ───────────────────────────────────
-var sway_amount     := 1.5
-var sway_speed      := 16.0
-var sway_smooth     := 16.0
-var sway_x          := 0.0
-var sway_y          := 0.0
-
-var is_crouching    := false
+var sway_amount  := 1.5
+var sway_speed   := 16.0
+var sway_smooth  := 16.0
+var sway_x       := 0.0
+var sway_y       := 0.0
+var is_crouching := false
 
 # ─── FOOTSTEPS ──────────────────────────────────
 @onready var footstep_player = $FootstepPlayer
@@ -65,17 +70,15 @@ var step_sounds = [
 	preload("res://sounds/footstep3.wav"),
 	preload("res://sounds/footstep4.wav")
 ]
-var step_timer      := 0.0
-var step_interval   := 0.42
+var step_timer    := 0.0
+var step_interval := 0.42
 
 # ─── ESTADO GERAL ───────────────────────────────
-var is_wall_running := false
-var wall_run_timer  := 0.0
-var wall_normal     := Vector3.ZERO
-var is_sliding      := false
-var current_roll    := 0.0
-
-# Controla se o jump deste frame deve pular o friction
+var is_wall_running    := false
+var wall_run_timer     := 0.0
+var wall_normal        := Vector3.ZERO
+var is_sliding         := false
+var current_roll       := 0.0
 var _jumped_this_frame := false
 
 
@@ -90,28 +93,54 @@ func _physics_process(delta):
 	_jumped_this_frame = false
 
 	handle_gravity(delta)
-	handle_jump()          # seta _jumped_this_frame = true se pulou
+	handle_jump()
 	handle_wall_run(delta)
 	handle_slide(delta)
-	handle_movement(delta) # friction só roda se não pulou neste frame
+	handle_movement(delta)
 	handle_crouch(delta)
 	handle_footsteps(delta)
 	handle_speed_fov(delta)
 	handle_camera_roll(delta)
+	handle_lean(delta)       # ← new
 	try_step()
 	move_and_slide()
 
-	# Gun sway
-	var input_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	sway_x = lerp(sway_x, input_x * sway_amount, delta * sway_smooth)
-	cam_pivot.rotation = cam_pivot.rotation.lerp(
-		Vector3(deg_to_rad(sway_y * 2.0), 0.0, deg_to_rad(sway_x * -2.0)),
-		delta * sway_speed
-	)
+#	# Gun sway
+#	var input_x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+#	cam_pivot.rotation = cam_pivot.rotation.lerp(
+#		Vector3(deg_to_rad(sway_y * 2.0), 0.0, deg_to_rad(sway_x * -2.0)),
+#		delta * sway_speed
+#	)
 
 
 # ════════════════════════════════════════════════
-# FÍSICA ESTILO QUAKE (CPM)
+# LEAN
+# ════════════════════════════════════════════════
+
+func handle_lean(delta):
+	# read lean input — add "lean_left" and "lean_right" actions in Project Settings
+	var lean_input := 0.0
+	if Input.is_action_pressed("lean_left"):
+		lean_input = -1.0
+	elif Input.is_action_pressed("lean_right"):
+		lean_input = 1.0
+
+	# smoothly lerp current lean toward target
+	current_lean = lerp(current_lean, lean_input, delta * lean_speed)
+
+	# horizontal offset: shift cam_pivot sideways in local space
+	lean_offset_x = current_lean * lean_distance
+	cam_pivot.position.x = lean_offset_x
+
+	# roll the camera in the lean direction
+	# note: handle_camera_roll also sets cam.rotation_degrees.z for wall run,
+	# so we add lean roll on top of whatever current_roll already is
+	var lean_roll = -current_lean * lean_roll_angle
+	cam.rotation_degrees.z = current_roll + lean_roll
+
+
+# ════════════════════════════════════════════════
+# FÍSICA QUAKEADA
 # ════════════════════════════════════════════════
 
 func get_wish_dir() -> Vector3:
@@ -134,39 +163,28 @@ func handle_gravity(delta):
 func handle_jump():
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_force
-		_jumped_this_frame = true   # pula o friction neste frame → bhop funciona
+		_jumped_this_frame = true
 
 func handle_movement(delta):
 	var wish_dir   = get_wish_dir()
 	var wish_speed = crouch_speed if is_crouching else ground_speed
 
-	# ── Aceleração CPM ──────────────────────────────────────────────────────
-	# Quake calcula quanto da velocidade atual já aponta para wish_dir.
-	# Só adiciona o que falta — isso permite air-strafe e bunny hop real.
 	if wish_dir != Vector3.ZERO:
-		var current_speed = velocity.dot(wish_dir)       # componente útil
-		var add_speed     = wish_speed - current_speed   # quanto falta
-
+		var current_speed = velocity.dot(wish_dir)
+		var add_speed     = wish_speed - current_speed
 		if add_speed > 0:
-			var accel = ground_accel if is_on_floor() else air_accel
+			var accel       = ground_accel if is_on_floor() else air_accel
 			var accel_speed = min(accel * wish_speed * delta, add_speed)
-			velocity += wish_dir * accel_speed
+			velocity       += wish_dir * accel_speed
 
-	# ── Cap de velocidade horizontal no chão ────────────────────────────────
-	# Sem isso, zigzag e círculos acumulam velocidade infinita porque
-	# velocity.dot(wish_dir) fica negativo, inflando o add_speed além do limite.
-	# No ar o cap é removido de propósito — é o que permite o bhop acumular speed.
 	if is_on_floor() and not is_sliding:
-		var h_vel        = Vector3(velocity.x, 0.0, velocity.z)
-		var max_speed    = wish_speed if wish_dir != Vector3.ZERO else ground_speed
+		var h_vel     = Vector3(velocity.x, 0.0, velocity.z)
+		var max_speed = wish_speed if wish_dir != Vector3.ZERO else ground_speed
 		if h_vel.length() > max_speed:
-			var capped   = h_vel.normalized() * max_speed
-			velocity.x   = capped.x
-			velocity.z   = capped.z
+			var capped = h_vel.normalized() * max_speed
+			velocity.x = capped.x
+			velocity.z = capped.z
 
-	# ── Friction ─────────────────────────────────────────────────────────────
-	# Só aplica no chão, sem slide, sem wall run, e NÃO no frame do pulo.
-	# Remover o friction no frame do pulo é o segredo do bhop do Quake.
 	if is_on_floor() and not is_sliding and not is_wall_running and not _jumped_this_frame:
 		if wish_dir == Vector3.ZERO:
 			var speed = velocity.length()
@@ -192,28 +210,22 @@ func handle_wall_run(delta):
 		is_wall_running = false
 		wall_run_timer  = 0.0
 		return
-
 	var wish_dir = get_wish_dir()
 	var normal   = get_wall_run_normal()
-
 	if normal != Vector3.ZERO and wish_dir != Vector3.ZERO:
 		if not is_wall_running:
 			is_wall_running = true
 			wall_run_timer  = max_wall_run_time
 			wall_normal     = normal
-
 	if is_wall_running:
 		wall_run_timer -= delta
 		if wall_run_timer <= 0:
 			is_wall_running = false
 			return
-
 		velocity.y -= wall_run_gravity * delta
-
 		var wall_dir = wall_normal.cross(Vector3.UP).normalized()
 		if wall_dir.dot(wish_dir) < 0:
 			wall_dir = -wall_dir
-
 		velocity.x = move_toward(velocity.x, wall_dir.x * wall_run_speed, wall_run_pull * delta)
 		velocity.z = move_toward(velocity.z, wall_dir.z * wall_run_speed, wall_run_pull * delta)
 
@@ -224,9 +236,7 @@ func handle_wall_run(delta):
 
 func handle_slide(delta):
 	var h_speed = Vector2(velocity.x, velocity.z).length()
-
-	is_sliding = is_on_floor() and Input.is_action_pressed("crouch") and h_speed > min_slide_speed
-
+	is_sliding  = is_on_floor() and Input.is_action_pressed("crouch") and h_speed > min_slide_speed
 	if is_sliding:
 		velocity.x = move_toward(velocity.x, 0.0, slide_friction * delta)
 		velocity.z = move_toward(velocity.z, 0.0, slide_friction * delta)
@@ -242,9 +252,8 @@ func handle_crouch(delta):
 		is_crouching = true
 	else:
 		is_crouching = not can_stand()
-
-	var target_height = crouch_height if is_crouching else stand_height
-	capsule.height    = lerp(capsule.height, target_height, 0.2)
+	var target_height  = crouch_height if is_crouching else stand_height
+	capsule.height     = lerp(capsule.height, target_height, 0.2)
 
 func can_stand() -> bool:
 	var from  = global_transform.origin
@@ -257,7 +266,7 @@ func can_stand() -> bool:
 
 
 # ════════════════════════════════════════════════
-# STEP (escada suave)
+# STEP
 # ════════════════════════════════════════════════
 
 func try_step():
@@ -286,10 +295,10 @@ func try_step():
 func handle_camera_roll(delta):
 	var target_roll := 0.0
 	if is_wall_running:
-		var side   = sign(wall_normal.dot(transform.basis.x))
+		var side    = sign(wall_normal.dot(transform.basis.x))
 		target_roll = -side * wall_run_roll_angle
-	current_roll          = lerp(current_roll, target_roll, delta * roll_speed)
-	cam.rotation_degrees.z = current_roll
+	current_roll = lerp(current_roll, target_roll, delta * roll_speed)
+	# note: cam.rotation_degrees.z is set in handle_lean to combine wall roll + lean roll
 
 func handle_speed_fov(delta):
 	var h_speed    = Vector2(velocity.x, velocity.z).length()
@@ -306,7 +315,7 @@ func handle_footsteps(delta):
 	if speed > 0.1 and is_on_floor():
 		step_timer -= delta
 		if step_timer <= 0:
-			footstep_player.stream   = step_sounds.pick_random()
+			footstep_player.stream    = step_sounds.pick_random()
 			footstep_player.volume_db = randf_range(-2, 0)
 			footstep_player.play()
 			step_timer = step_interval
@@ -325,35 +334,33 @@ func _input(event):
 			DisplayServer.window_get_size().y / ProjectSettings.get_setting("display/window/size/viewport_height")
 		)
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens * ratio.x))
-		cam_pitch = clamp(cam_pitch - event.relative.y * mouse_sens * ratio.y, -89, 89)
+		cam_pitch              = clamp(cam_pitch - event.relative.y * mouse_sens * ratio.y, -89, 89)
 		cam.rotation_degrees.x = cam_pitch
 
 func _process(_delta):
 	if Input.is_action_pressed("fire"):
 		gun_holder.fire_current()
 
-# ─── STATS ───────────────────────────────────────
+
+# ════════════════════════════════════════════════
+# STATS
+# ════════════════════════════════════════════════
+
 @export var max_health := 100
 @export var max_armor  := 100
 
 var health := 100
-var armor  := 0      # começa sem armor, pega via pickup
+var armor  := 0
 
-# ─── REFERÊNCIAS ─────────────────────────────────
 @onready var hud := get_tree().get_first_node_in_group("hud")
 
-# ─── DANO ────────────────────────────────────────
-
 func take_damage(amount: int):
-	# Armor absorve 2/3 do dano (padrão Quake)
 	if armor > 0:
 		var absorbed  = min(int(amount * 0.66), armor)
 		armor        -= absorbed
 		amount       -= absorbed
-
 	health -= amount
 	hud.update_stats(health, armor)
-
 	if health <= 0:
 		die()
 
@@ -366,28 +373,55 @@ func add_armor(amount: int):
 	hud.update_stats(health, armor)
 
 func die():
-	# por enquanto só printa — você pode adicionar respawn aqui depois
-	print("player morreu")
+	# disable input during death
+	set_physics_process(false)
+	set_process(false)
 
-# ─── MUNIÇÃO ─────────────────────────────────────
-# dicionário indexado por nome de arma — fácil de expandir
+	hud.fade_out(func():
+		respawn()
+		hud.fade_in()
+	)
+
+func respawn():
+	# reset stats
+	health  = max_health
+	armor   = 0
+	ammo    = {"pistol": 50, "shotgun": 20}
+	hud.update_stats(health, armor)
+	hud.update_ammo(ammo["pistol"])
+
+	# move to spawn point
+	var spawn = get_tree().get_first_node_in_group("spawn_point")
+	if spawn:
+		global_transform.origin = spawn.global_transform.origin
+
+	# reset velocity so player doesn't keep moving
+	velocity = Vector3.ZERO
+
+	# re-enable input
+	set_physics_process(true)
+	set_process(true)
+
+
+# ════════════════════════════════════════════════
+# MUNIÇÃO
+# ════════════════════════════════════════════════
+
 var ammo := {
-	"pistol":   50,
-	"shotgun":  20,
+	"pistol":  50,
+	"shotgun": 20,
 }
 
 var ammo_max := {
-	"pistol":   200,
-	"shotgun":  50,
+	"pistol":  200,
+	"shotgun": 50,
 }
 
 func use_ammo(weapon: String, amount: int = 1) -> bool:
 	if not ammo.has(weapon):
-		return true   # arma sem munição (ex: faca) sempre pode atirar
-
+		return true
 	if ammo[weapon] <= 0:
-		return false  # sem bala
-
+		return false
 	ammo[weapon] -= amount
 	hud.update_ammo(ammo[weapon])
 	return true

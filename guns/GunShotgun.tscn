@@ -14,7 +14,7 @@ script = ExtResource("1_k4153")
 tracer_scene = ExtResource("2_23kqo")
 impact_scene = ExtResource("3_tdk62")
 
-[node name="GunSound" type="AudioStreamPlayer3D" parent="."]
+[node name="GunSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_23kqo")
 volume_db = 4.0
 bus = &"Guns"
@@ -32,7 +32,7 @@ transform = Transform3D(6.795322, 0, 0, 0, 1.5793357, 0, 0, 0, 1, 0, 0, 0)
 target_position = Vector3(0, 0, -50)
 
 [node name="Shotgun" parent="." instance=ExtResource("2_7404p")]
-transform = Transform3D(-0.09672634, 0.0039911377, 0.995303, 0.04621475, 0.9989314, 0.00048559214, -0.9942375, 0.04604466, -0.096807435, 0.35475084, -0.33071113, -0.53178054)
+transform = Transform3D(-0.027189806, 0.0012346819, 0.59938234, 0.027217796, 0.59938234, 0, -0.5987654, 0.027189778, -0.027217824, 0.3199434, -0.33628297, -0.35)
 
 [node name="slide" parent="Shotgun" index="0"]
 layers = 1048575
@@ -50,7 +50,7 @@ layers = 1048575
 layers = 1048575
 
 [node name="MuzzlePoint" type="Node3D" parent="."]
-transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.4004227, -0.27648318, -1.3407232)
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.40172237, -0.2404088, -1.0317785)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
