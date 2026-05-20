@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=4 uid="uid://b466spt03qove"]
+[gd_scene load_steps=134 format=4 uid="uid://b466spt03qove"]
 
 [ext_resource type="Texture2D" uid="uid://b16pm41sbmeh3" path="res://assets/textures/gui/Crosshair 1.png" id="5_036b0"]
 [ext_resource type="Script" uid="uid://cwu5cf7a0awcd" path="res://addons/func_godot/src/map/func_godot_map.gd" id="7_ioo17"]
@@ -20,7 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://p8b1rf35xf40" path="res://player.tscn" id="21_bc84e"]
 [ext_resource type="Material" uid="uid://dbl4473vr7thl" path="res://assets/textures/world/t11.tres" id="21_mc2jv"]
 [ext_resource type="PackedScene" uid="uid://dl21uvx54a5rr" path="res://grunt.tscn" id="22_il2jm"]
+[ext_resource type="PackedScene" uid="uid://df8pcpjcce1f" path="res://assets/items/Health.tscn" id="22_wjb0r"]
 [ext_resource type="PackedScene" uid="uid://dgc5ebdgefd5o" path="res://grenade_enemy.tscn" id="22_wukud"]
+[ext_resource type="PackedScene" uid="uid://b6kp3a7keghdd" path="res://assets/items/Ammo.tscn" id="23_il2jm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bc84e"]
 albedo_texture = ExtResource("10_ic0uy")
@@ -509,6 +511,7 @@ points = PackedVector3Array(-15.5, 4.4999995, -5.75, -15.5, 0, -5.75, -15.5, 4.4
 [sub_resource type="Environment" id="Environment_fj7yv"]
 ambient_light_source = 3
 ambient_light_color = Color(0.16449541, 0.35856107, 0.3080547, 1)
+glow_enabled = true
 fog_mode = 1
 fog_density = 1.0
 
@@ -891,6 +894,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.993924, 2.5599597, -13.49
 light_color = Color(0.8614244, 0.58895516, 0.04253745, 1)
 light_energy = 16.0
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 12.6
 
 [node name="OmniLight3D5" type="OmniLight3D" parent="WorldEnvironment"]
@@ -898,6 +903,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.394586, 4.8548665, -19.418
 light_color = Color(0.8614244, 0.58895516, 0.04253745, 1)
 light_energy = 16.0
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 12.6
 
 [node name="OmniLight3D10" type="OmniLight3D" parent="WorldEnvironment"]
@@ -905,6 +912,8 @@ transform = Transform3D(0.9975592, 0, -0.06982612, 0, 1, 0, 0.06982612, 0, 0.997
 light_color = Color(0.8614244, 0.58895516, 0.04253745, 1)
 light_energy = 16.0
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 10.063
 omni_attenuation = -0.216
 
@@ -913,6 +922,8 @@ transform = Transform3D(0.9975592, 0, -0.06982612, 0, 1, 0, 0.06982612, 0, 0.997
 light_color = Color(0.8614244, 0.58895516, 0.04253745, 1)
 light_energy = 16.0
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 10.063
 omni_attenuation = -0.216
 
@@ -921,6 +932,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.911436, 7.430621, -17.373
 light_color = Color(0.8614244, 0.58895516, 0.04253745, 1)
 light_energy = 16.0
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 12.6
 
 [node name="OmniLight3D" type="OmniLight3D" parent="WorldEnvironment"]
@@ -928,6 +941,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.907316, 2.513109, -0.4532
 light_color = Color(0.55094445, 0.52896994, 0.811734, 1)
 light_energy = 7.762
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 23.06466
 omni_attenuation = -0.257
 
@@ -936,6 +951,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.30229, 2.513109, 2.827162
 light_color = Color(0.55094445, 0.52896994, 0.811734, 1)
 light_energy = 7.762
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 10.906169
 omni_attenuation = -0.257
 
@@ -944,8 +961,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.331444, 2.513109, 10.6123
 light_color = Color(0.55094445, 0.52896994, 0.811734, 1)
 light_energy = 7.762
 light_bake_mode = 1
+distance_fade_enabled = true
+distance_fade_begin = 13.0
 omni_range = 17.692514
 omni_attenuation = -0.257
 
 [node name="SpawnPoint" type="Marker3D" parent="." groups=["spawn_point"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.471355, 0.7291113, 9.242972)
+
+[node name="Health" parent="." instance=ExtResource("22_wjb0r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.23461, 0, 11.574831)
+
+[node name="Area3D" parent="." instance=ExtResource("23_il2jm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.409275, 0, -2.0278006)
+
+[node name="Area3D2" parent="." instance=ExtResource("23_il2jm")]
+transform = Transform3D(0.066883385, 0, 0.9977608, 0, 1, 0, -0.9977608, 0, 0.066883385, -34.645462, 0, 3.654674)
+ammo_weapon = "shotgun"

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://utjayenccbu1"]
+[gd_scene load_steps=6 format=3 uid="uid://utjayenccbu1"]
 
 [ext_resource type="Script" uid="uid://de7ch0js5f7d4" path="res://grenade.gd" id="1_gju2f"]
+[ext_resource type="PackedScene" uid="uid://bspkgpxbsfaq2" path="res://effects/explosion.tscn" id="2_24g56"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_24g56"]
 radius = 0.2636022
@@ -16,6 +17,7 @@ radius = 0.9157947
 contact_monitor = true
 max_contacts_reported = 10
 script = ExtResource("1_gju2f")
+explosion_scene = ExtResource("2_24g56")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_24g56")

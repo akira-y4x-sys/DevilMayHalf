@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://p8b1rf35xf40"]
+[gd_scene load_steps=8 format=3 uid="uid://p8b1rf35xf40"]
 
 [ext_resource type="Script" uid="uid://cfiehebosdges" path="res://player.gd" id="1_hqtel"]
 [ext_resource type="Script" uid="uid://cmfymmglni3pi" path="res://gun_holder.gd" id="2_sweqy"]
 [ext_resource type="PackedScene" uid="uid://d6oh6g3m3a8e" path="res://guns/GunPistol.tscn" id="3_2hs0m"]
 [ext_resource type="PackedScene" uid="uid://lu1ea15l8fg" path="res://guns/GunShotgun.tscn" id="4_1jxqw"]
+[ext_resource type="PackedScene" uid="uid://cqyq1m7isgju8" path="res://guns/GunRifle.tscn" id="5_sweqy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dw050"]
 
@@ -31,4 +32,4 @@ mesh = SubResource("BoxMesh_b26j0")
 
 [node name="GunHolder" type="Node3D" parent="CameraPivot/Camera3D"]
 script = ExtResource("2_sweqy")
-guns = Array[PackedScene]([ExtResource("3_2hs0m"), ExtResource("4_1jxqw")])
+guns = Array[PackedScene]([ExtResource("3_2hs0m"), ExtResource("4_1jxqw"), ExtResource("5_sweqy")])

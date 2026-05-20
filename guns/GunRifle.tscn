@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cqyq1m7isgju8"]
+
+[ext_resource type="Script" uid="uid://c5fn3lt4m0q1b" path="res://guns/gun_rifle.gd" id="1_kp08i"]
+[ext_resource type="PackedScene" uid="uid://cnf3lcxl145vp" path="res://tracer.tscn" id="2_7xdwe"]
+[ext_resource type="AudioStream" uid="uid://8gtboqq50jlf" path="res://sounds/gunsounds/rifleshoot.wav" id="2_bhb0j"]
+[ext_resource type="PackedScene" uid="uid://cyqli4fwujr7h" path="res://guns/machinegun.glb" id="4_sayqp"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_kp08i")
+tracer_scene = ExtResource("2_7xdwe")
+
+[node name="GunSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_bhb0j")
+volume_db = 15.6
+max_polyphony = 6
+bus = &"Guns"
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="blockbench_export" parent="." instance=ExtResource("4_sayqp")]
+transform = Transform3D(0.005017965, 0.00073033315, 0.14991428, -0.0012061838, 0.14999355, -0.0006903459, -0.14991118, -0.0011824016, 0.005023622, 0.4028815, -0.57995254, -0.49192896)
+
+[node name="MuzzleFlash" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2662335, -0.23248929, -1.2549756)
+
+[node name="AmmoText" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21858352, -0.079471536, -0.4221143)
+pixel_size = 0.001

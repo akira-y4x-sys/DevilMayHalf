@@ -386,7 +386,7 @@ func respawn():
 	# reset stats
 	health  = max_health
 	armor   = 0
-	ammo    = {"pistol": 50, "shotgun": 20}
+	ammo    = {"pistol": 50, "shotgun": 20,"rifle": 120}
 	hud.update_stats(health, armor)
 	hud.update_ammo(ammo["pistol"])
 
@@ -410,12 +410,19 @@ func respawn():
 var ammo := {
 	"pistol":  50,
 	"shotgun": 20,
+	"rifle": 120,
 }
 
 var ammo_max := {
 	"pistol":  200,
 	"shotgun": 50,
+	"rifle": 300,
 }
+
+func get_ammo(weapon: String) -> int:
+	if not ammo.has(weapon):
+		return 0
+	return ammo[weapon]
 
 func use_ammo(weapon: String, amount: int = 1) -> bool:
 	if not ammo.has(weapon):

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://df8pcpjcce1f"]
+
+[ext_resource type="Script" uid="uid://m2dcgnpxhdif" path="res://pickup.gd" id="1_j6dd2"]
+[ext_resource type="PackedScene" uid="uid://ldxnhcgagn5g" path="res://assets/models/HealthKit.glb" id="2_gp8ot"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gx4l7"]
+radius = 0.4
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_j6dd2")
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_gp8ot")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.20321202, 0)
+shape = SubResource("SphereShape3D_gx4l7")
+
+[editable path="blockbench_export"]

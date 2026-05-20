@@ -17,6 +17,7 @@ impact_scene = ExtResource("3_tdk62")
 [node name="GunSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_23kqo")
 volume_db = 4.0
+max_polyphony = 3
 bus = &"Guns"
 
 [node name="MuzzleFlash" type="OmniLight3D" parent="."]

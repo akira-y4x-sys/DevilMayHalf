@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b6kp3a7keghdd"]
+
+[ext_resource type="Script" uid="uid://ucpppgu1hlcv" path="res://Ammo.gd" id="1_dals8"]
+[ext_resource type="PackedScene" uid="uid://c2qv7rop2u12f" path="res://assets/models/Ammo.glb" id="2_pjfgs"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b66rk"]
+radius = 0.4
+
+[node name="Area3D" type="Area3D"]
+script = ExtResource("1_dals8")
+type = 1
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_pjfgs")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3051474, 0)
+shape = SubResource("SphereShape3D_b66rk")

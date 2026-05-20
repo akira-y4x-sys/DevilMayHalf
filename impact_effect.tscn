@@ -16,12 +16,11 @@ initial_velocity_min = 2.0
 initial_velocity_max = 6.0
 gravity = Vector3(0, -2, 0)
 scale_curve = SubResource("CurveTexture_6uorh")
-color = Color(0.8132879, 0.11403567, 0.5688285, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_se5lf"]
 shading_mode = 0
 specular_mode = 2
-albedo_color = Color(0.5106012, 0.5106013, 0.5106012, 1)
+albedo_color = Color(1, 1, 0.19607843, 1)
 texture_filter = 0
 disable_receive_shadows = true
 proximity_fade_distance = 2589.39

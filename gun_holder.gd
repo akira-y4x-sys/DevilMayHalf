@@ -83,7 +83,7 @@ func _process(delta):
 	var wall_result = space.intersect_ray(query)
 	if wall_result:
 		var wall_dist  = from.distance_to(wall_result.position)
-		var push_back  = (0.8 - wall_dist) * 0.6
+		var push_back  = (2.0 - wall_dist) * 0.6
 		target_pos.z  += push_back
 
 	# ── 2. BOB ───────────────────────────────────

@@ -34,40 +34,52 @@ func shoot():
 func cast_pellets():
 	var space = get_world_3d().direct_space_state
 	var cam   = player.get_node("CameraPivot/Camera3D")
+
 	for i in range(PELLETS):
 		var dir  = get_spread_direction()
 		var from = cam.global_transform.origin
 		var to   = from + dir * RANGE
 
-		var query     = PhysicsRayQueryParameters3D.new()
-		query.from    = from
-		query.to      = to
+		var query = PhysicsRayQueryParameters3D.new()
+		query.from = from
+		query.to = to
 		query.exclude = [self]
 
 		var result = space.intersect_ray(query)
+
 		if result:
 			var hit = result.collider
 
 			if hit.has_method("take_damage"):
 				hit.take_damage(DAMAGE)
 
-		spawn_impact(result.position, result.normal)
+			spawn_impact(result.position, result.normal)
 
 		var hit_pos = result.position if result else (from + dir * RANGE)
-		spawn_tracer(muzzle.global_transform.origin, dir, hit_pos)
 
-func spawn_impact(position: Vector3, normal: Vector3):
+		spawn_tracer(
+			muzzle.global_transform.origin,
+			dir,
+			hit_pos
+		)
+
+func spawn_impact(hit_position: Vector3, normal: Vector3):
 	if not impact_scene:
 		return
-	var impact = impact_scene.instantiate()
-	get_tree().current_scene.add_child(impact)
-	impact.global_transform.origin = position + normal * 0.1
 
-	# rotaciona o impacto para apontar na direção da normal da superfície
+	var impact = impact_scene.instantiate()
+
+	get_tree().current_scene.add_child(impact)
+
+	impact.global_transform.origin = hit_position + normal * 0.1
+
+	# rotate impact toward surface normal
 	var up = Vector3.UP
+
 	if abs(normal.dot(Vector3.UP)) > 0.99:
 		up = Vector3.FORWARD
-	impact.look_at(position + normal, up)
+
+	impact.look_at(hit_position + normal, up)
 
 func get_spread_direction() -> Vector3:
 	var cam        = player.get_node("CameraPivot/Camera3D")

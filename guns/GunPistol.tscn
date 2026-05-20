@@ -11,6 +11,7 @@ tracer_scene = ExtResource("2_b8bdh")
 
 [node name="GunSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_334ri")
+max_polyphony = 6
 bus = &"Guns"
 
 [node name="MuzzleFlash" type="OmniLight3D" parent="."]
